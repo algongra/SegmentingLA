@@ -1,0 +1,4 @@
+# Launcher logs (including standard outputs and errors)
+launchers/*.log
+launchers/*.o
+launchers/*.e
