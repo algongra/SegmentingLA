@@ -9,8 +9,8 @@ function remove_dataset_fun {
         DATASET_NAME=$2
 
         # Sanity check (Does Segmenting LA data path exist?)
-        if [ ! -d "${Segmeting_LA_data_path}" ]; then
-           printf " Directory does not exist:\n ${Segmeting_LA_data_path}\n"
+        if [ ! -d "${Segmenting_LA_data_path}" ]; then
+           printf " Directory does not exist:\n ${Segmenting_LA_data_path}\n"
            exit 1
         fi
 
@@ -51,7 +51,7 @@ function remove_dataset_fun {
 
         # Delete Dataset from datasets_ids.pkl
         if [ -f "${nnUNet_raw}/datasets_ids.pkl" ]; then
-           python -c "import sys; sys.path.insert(0,\"${Segmeting_LA_lib_path}\"); import utils as utls; utls.delete_dataset_id_from_datasets_ids(${DATASET_ID})"
+           python -c "import sys; sys.path.insert(0,\"${Segmenting_LA_lib_path}\"); import utils as utls; utls.delete_dataset_id_from_datasets_ids(${DATASET_ID})"
         else
            printf "${nnUNet_raw}/datasets_ids.pkl not found"
         fi

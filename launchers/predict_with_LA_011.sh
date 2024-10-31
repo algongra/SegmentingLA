@@ -19,8 +19,8 @@ DATASET_ID=11
 DATASET_NAME=LA
 TR_CONFIG_LIST=(3d_fullres 3d_lowres 2d)
 KFOLD=5
-INPUT_FOLDER=${Segmeting_LA_lib}/CT_scans_data/imgs_to_predict
-OUTPUT_FOLDER=${Segmeting_LA_lib}/CT_scans_data/segs_nnUNet
+INPUT_FOLDER=${Segmenting_LA_data_path}/CT_scans_data/imgs_to_predict
+OUTPUT_FOLDER=${Segmenting_LA_data_path}/CT_scans_data/segs_nnUNet
 
 
 # Call function training_fun.sh for each fold

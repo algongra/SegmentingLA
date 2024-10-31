@@ -24,7 +24,7 @@ KFOLD=5
 
 # Create Dataset
 #
-python3 ${Segmeting_LA_lib_path}/create_dataset.py \
+python3 ${Segmenting_LA_lib_path}/create_dataset.py \
         --input_folder $INPUT_FOLDER \
         --training_percentage $TRAINING_PERCENTAGE \
         --dataset_id $DATASET_ID \
