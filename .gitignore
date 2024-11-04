@@ -1,4 +1,10 @@
-# Launcher logs (including standard outputs and errors)
+# Launchers logs (including standard outputs and errors)
 launchers/*.log
 launchers/*.o
 launchers/*.e
+
+# Launchers user setting file
+launchers/settings.sh
+
+# Intallation user configure file
+install/configure.sh
