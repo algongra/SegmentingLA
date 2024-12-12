@@ -211,11 +211,19 @@ From launchers directory:
   ```
   cp predict_with_LA_011.sh predict_with_LA_011_new_cases.sh
   ```
+  or
+  ```
+  cp predict_with_best_LA_012.sh predict_with_best_LA_012_new_cases.sh
+  ```
 
 * **Modify inputs editing predict_with_{DATASET_ID_NEW}_{DATASET_NAME_NEW}.sh** using your favourite editor, **e.g.:**
 
   ```
   vim predict_with_LA_011_new_cases.sh
+  ```
+  or
+  ```
+  vim predict_with_best__LA_012_new_cases.sh
   ```
 
   Example of modified inputs:
@@ -228,19 +236,56 @@ From launchers directory:
   TR_CONFIG_LIST=(3d_fullres)  # I HAVE MODIFIED THIS INPUT! IT WAS (3d_fullres 3d_lowres 2d) IN predict_with_LA_011.sh
   KFOLD=5
   INPUT_FOLDER=${Segmenting_LA_data_path}/CT_scans_data/imgs_to_predict
-  OUTPUT_FOLDER=${Segmenting_LA_data_path}/CT_scans_data/segs_nnUNet
+  OUTPUT_FOLDER=${Segmenting_LA_data_path}/CT_scans_data/segs_nnUNet/Dataset011_LA
   ```
+  or
+  ```
+  # Declare inputs in enviroment variables
+  #
+  # Select Dataset ID
+  DATASET_ID=12
+  # Select Dataset name
+  DATASET_NAME=LA
+  # Select training plane used to train selected Dataset (one at a time)
+  PLAN_TYPE=nnUNetResEncUNetXLPlans
+  # Specify the absolute path to the folder containing cases directories with
+  # Nifti images for which masks need to be predicted
+  INPUT_FOLDER=${Segmenting_LA_data_path}/CT_scans_data/imgs_to_predict
+  # Select list of cases for mask prediction
+  # e.g., CASE_NM_LIST=(27468 28024 30016 30701 30919 31174)
+  CASE_NM_LIST=(31174 44243_1 43358) I HAVE MODIFIED THIS INPUT! IT WAS (31174 30016 30701 30919) IN predict_with_best_LA_012.sh
+  # Select list of training configurations (full training MUST be completed)
+  # e.g., TR_CONFIG_LIST=3d_fullres, 3d_lowres, 2d
+  TR_CONFIG_LIST=3d_fullres
+  # Specify the absolute path to the folder where predicted masks will be save
+  #  - After best inference --> $OUTPUT_FOLDER/best
+  #  - After postprocessing --> $OUTPUT_FOLDER/postpro
+  OUTPUT_FOLDER=${Segmenting_LA_data_path}/CT_scans_data/segs_nnUNet/Dataset012_LA
+  # Select number of processes used to determine best predictive configuration
+  # and to perform postprocessing
+  # (same number of processes will be used for both tasks)
+  N_PROC=6 # I HAVE MODIFIED THIS INPUT! IT WAS 7 IN predict_with_best_LA_012.sh
+  ```
+
 
 * **Run predict_with_{DATASET_ID_NEW}_{DATASET_NAME_NEW}.sh** file, **e.g.:**
 
   ```
   nohup ./predict_with_LA_011_new_cases.sh > predict_with_LA_011_new_cases.out 2> predict_with_LA_011_new_cases.err &
   ```
+  or
+  ```
+  nohup ./predict_with_best_LA_012_new_cases.sh > predict_with_best_LA_012_new_cases.out 2> predict_with_best_LA_012_new_cases.err &
+  ```
 
   If your server/workstation has SLURM installed, modify the header of predict_with_LA_011_new_cases.sh appropiately and use
 
   ```
   sbatch predict_with_LA_011_new_cases.sh
+  ```
+  or
+  ```
+  sbatch predict_with_best_LA_012_new_cases.sh
   ```
      
   If you are wondering what an SLURM header is, don't use this second option

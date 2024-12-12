@@ -11,6 +11,7 @@ Miniconda3-latest-Linux-x86_64.sh"
 # Miniconda installation path
 export MINICONDA_PREFIX="/gscratch/mambrino/algongra/Software/miniconda3"
 # nnUNet installation path
+# (nnUNet will be installed in a directory named nnUNet inside the defined path)
 export NNUNET_PREFIX="/gscratch/mambrino/algongra/Software"
 # Pytorch GPU compatible with OS and system resources
 export PYTORCH_PIP_INSTALL_CMD="pip3 install torch torchvision torchaudio \

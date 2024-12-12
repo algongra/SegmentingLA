@@ -15,10 +15,18 @@ source $Segmenting_LA_lib/plan_and_preprocess_fun.sh
 export -f plan_and_preprocess_fun
 source $Segmenting_LA_lib/train_fun.sh
 export -f train_fun
+source $Segmenting_LA_lib/find_best_config_fun.sh
+export -f find_best_config_fun
 source $Segmenting_LA_lib/predict_fun.sh
 export -f predict_fun
+export -f predict_best_fun
 source $Segmenting_LA_lib/remove_dataset_fun.sh
 export -f remove_dataset_fun
+source $Segmenting_LA_lib/extract_info_from_inference_instructions.sh
+export -f find_predict_best_flags_fun
+export -f find_postpro_flags_fun
+source $Segmenting_LA_lib/postpro_fun.sh
+export -f postpro_fun
 
 # Export nnUNet paths
 export nnUNet_dir=${nnUNet_dir}

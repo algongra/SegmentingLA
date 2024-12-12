@@ -1,10 +1,12 @@
 #!/bin/bash
 
+# 0. Get current directory to come back 
+this_dir=`pwd`
 
 # 1 Export environment variables from configure.sh
 echo "-------------------------------------------------------------------------"
 echo ""
-echo "Export environment variables from edited configure.sh"
+echo "Export environment variables from configure.sh"
 echo ""
 echo "-------------------------------------------------------------------------"
 . ./configure.sh
@@ -16,51 +18,54 @@ echo ""
 echo "Export and create additional environment variables"
 echo ""
 echo "-------------------------------------------------------------------------"
-# Miniconda binary files path
+# miniconda3 binary files path
 export CONDA_BIN=${MINICONDA_PREFIX}/bin
-# Miniconda virtual enviroments path
+# miniconda3 virtual enviroments path
 export CONDA_ENVS=${MINICONDA_PREFIX}/envs
-# Path where Miniconda installer will be downloaded
+# Path where miniconda3 installer will be downloaded
 export SOFTWARE_PATH=`echo ${MINICONDA_PREFIX} | sed 's![^/]*$!!'`
-# Name of Miniconda installer executable file
+# Name of miniconda3 installer executable file
 export CONDA_EXEC=`echo ${MINICONDA_DOWNLOAD} | sed 's|.*/||'`
 
 
-# 3. Install Miniconda and initialize it
-echo "-------------------------------------------------------------------------"
-echo ""
-echo "Install Miniconda in ${MINICONDA_PREFIX} and"
-echo "initialize it"
-echo ""
-echo "-------------------------------------------------------------------------"
-# If Miniconda is installed, there is not need to install it again
-if conda --version > /dev/null 2>&1; then
+# 3. Install miniconda3 and initialize it
+# #
+# If miniconda3 (or anaconda3) is installed, there is not need to install it
+# again
+if ${CONDA_BIN}/conda --version > /dev/null 2>&1; then
+   ## Get miniconda3 (or anaconda3) prefix
+   # MINICONDA_PREFIX=`${CONDA_BIN}/conda info | grep -i 'base environment' | sed -E 's/.*: ([^ ]+) .*/\1/'`
+   echo "-------------------------------------------------------------------------"
    echo ""
-   echo "miniconda3 is already installed in this system"
+   echo "miniconda3 is already installed in this system in:"
+   echo " ${MINICONDA_PREFIX}"
    echo ""
+   echo "-------------------------------------------------------------------------"
 else
-   # Install Miniconda
+   # Install miniconda3
+   echo "-------------------------------------------------------------------------"
+   echo ""
+   echo "Install miniconda3 in:"
+   echo " ${MINICONDA_PREFIX}"
+   echo ""
+   echo "-------------------------------------------------------------------------"
    mkdir -p ${SOFTWARE_PATH}
-   wget -P ${SOFTWARE_PATH} ${MINICONDA_DOWNLOAD}
-   bash ${SOFTWARE_PATH}/${CONDA_EXEC} -b -y -p ${MINICONDA_PREFIX}
+   wget -q -P ${SOFTWARE_PATH} ${MINICONDA_DOWNLOAD}
+   bash ${SOFTWARE_PATH}/${CONDA_EXEC} -b -p ${MINICONDA_PREFIX}
 fi
-# Initialize Miniconda
-export PATH=${CONDA_BIN}:${PATH}
-conda init
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('${CONDA_BIN}/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
+# Initialize miniconda3 (or anaconda3)
+echo "-------------------------------------------------------------------------"
+echo ""
+echo "Initialize miniconda3 (or anaconda3)"
+echo ""
+echo "-------------------------------------------------------------------------"
+if [ -f "${MINICONDA_PREFIX}/etc/profile.d/conda.sh" ]; then
+   echo " Executing conda.sh..."
+    . "${MINICONDA_PREFIX}/etc/profile.d/conda.sh"
 else
-    if [ -f "${MINICONDA_PREFIX}/etc/profile.d/conda.sh" ]; then
-        . "${MINICONDA_PREFIX}/etc/profile.d/conda.sh"
-    else
-        export PATH=${CONDA_BIN}:${PATH}
-    fi
+   echo " Adding ${CONDA_BIN} to PATH..."
+    export PATH=${CONDA_BIN}:${PATH}
 fi
-unset __conda_setup
-# <<< conda initialize <<<
 
 
 # 4. Create virtual environment (with conda) to install all required packages
@@ -149,3 +154,6 @@ fi
 #pip install batchgeneratorv2==0.1.1
 # hiddenlayer (to plot network topologies) [OPTIONAL]
 pip install --upgrade git+https://github.com/FabianIsensee/hiddenlayer.git
+
+# 9. Get back to directory where installation started
+cd ${this_dir}
