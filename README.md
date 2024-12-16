@@ -181,7 +181,7 @@ From launchers directory:
   cp remove_dataset_LA_013.sh remove_dataset_LAA_100.sh
   ```
 
-* **Modify inputs editing remove_dataset__{DATASET_ID_NEW}_{DATASET_NAME_NEW}.sh** using your favourite editor, **e.g.:**
+* **Modify inputs editing remove_dataset_{DATASET_ID_NEW}_{DATASET_NAME_NEW}.sh** using your favourite editor, **e.g.:**
 
   ```
   vim remove_dataset_LAA_100.sh
@@ -223,7 +223,7 @@ From launchers directory:
   ```
   or
   ```
-  vim predict_with_best__LA_012_new_cases.sh
+  vim predict_with_best_LA_012_new_cases.sh
   ```
 
   Example of modified inputs:

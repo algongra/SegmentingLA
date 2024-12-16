@@ -27,6 +27,8 @@ export -f find_predict_best_flags_fun
 export -f find_postpro_flags_fun
 source $Segmenting_LA_lib/postpro_fun.sh
 export -f postpro_fun
+source $Segmenting_LA_lib/run_validation_fun.sh
+export -f run_validation_fun
 
 # Export nnUNet paths
 export nnUNet_dir=${nnUNet_dir}

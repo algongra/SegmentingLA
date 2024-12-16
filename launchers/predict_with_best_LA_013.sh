@@ -28,7 +28,8 @@ INPUT_FOLDER=${Segmenting_LA_data_path}/CT_scans_data/imgs_to_predict
 # e.g., CASE_NM_LIST=(27468 28024 30016 30701 30919 31174)
 #CASE_NM_LIST=(30016 30701 30919 31174)
 #CASE_NM_LIST=(31174)
-CASE_NM_LIST=(30016 30701 30919)
+#CASE_NM_LIST=(30016 30701 30919)
+CASE_NM_LIST=(43358)
 # Select list of training configurations (full training MUST be completed)
 # e.g., TR_CONFIG_LIST=3d_fullres, 3d_lowres, 2d
 TR_CONFIG_LIST=3d_fullres
@@ -42,8 +43,11 @@ OUTPUT_FOLDER=${Segmenting_LA_data_path}/CT_scans_data/segs_nnUNet/Dataset013_LA
 N_PROC=6
 
 
+# Run validation (including --npz flag) if it was not previously run
+run_validation_fun $DATASET_ID $DATASET_NAME "$TR_CONFIG_LIST" $PLAN_TYPE
+
 # Call function find_best_config_fun.sh
-find_best_config_fun $DATASET_ID $N_PROC "$TR_CONFIG_LIST" $PLAN_TYPE
+find_best_config_fun $DATASET_ID $DATASET_NAME $N_PROC "$TR_CONFIG_LIST" $PLAN_TYPE
 
 # Obtain flags to perform best masks inferenced from inference_intruction.txt
 #

@@ -1,13 +1,13 @@
 #!/bin/bash
-#SBATCH -J predict_with_best_LA_012
+#SBATCH -J predict_with_best_LA_011
 #SBATCH -A mambrino
 #SBATCH -p gpu-a40
 #SBATCH -t 24:00:00
 #SBATCH --mem=119G
 #SBATCH --gpus=1
 #SBATCH --cpus-per-task=7
-#SBATCH -o predict_with_best_LA_012.o
-#SBATCH -e predict_with_best_LA_012.e
+#SBATCH -o predict_with_best_LA_011.o
+#SBATCH -e predict_with_best_LA_011.e
 
 
 # Config Segmenting LA project
@@ -16,25 +16,22 @@ source config.sh
 # Declare inputs in enviroment variables
 #
 # Select Dataset ID
-DATASET_ID=12
+DATASET_ID=11
 # Select Dataset name
 DATASET_NAME=LA
-# Select training plane used to train selected Dataset (one at a time)
-PLAN_TYPE=nnUNetResEncUNetXLPlans
 # Specify the absolute path to the folder containing cases directories with
 # Nifti images for which masks need to be predicted
 INPUT_FOLDER=${Segmenting_LA_data_path}/CT_scans_data/imgs_to_predict
 # Select list of cases for mask prediction
 # e.g., CASE_NM_LIST=(27468 28024 30016 30701 30919 31174)
-#CASE_NM_LIST=(31174 30016 30701 30919)
 CASE_NM_LIST=(43358)
 # Select list of training configurations (full training MUST be completed)
 # e.g., TR_CONFIG_LIST=3d_fullres, 3d_lowres, 2d
-TR_CONFIG_LIST=3d_fullres
+TR_CONFIG_LIST=(3d_fullres 3d_lowres 2d)
 # Specify the absolute path to the folder where predicted masks will be save
 #  - After best inference --> $OUTPUT_FOLDER/best
 #  - After postprocessing --> $OUTPUT_FOLDER/postpro
-OUTPUT_FOLDER=${Segmenting_LA_data_path}/CT_scans_data/segs_nnUNet/Dataset012_LA
+OUTPUT_FOLDER=${Segmenting_LA_data_path}/CT_scans_data/segs_nnUNet/Dataset011_LA
 # Select number of processes used to determine best predictive configuration
 # and to perform postprocessing
 # (same number of processes will be used for both tasks)

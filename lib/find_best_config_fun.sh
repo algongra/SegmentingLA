@@ -2,13 +2,14 @@
 
 # arguments:
 #  1: DATASET_ID
-#  2: N_PROC (Number of processers used for ensembling, postprocessing etc
-#  3: TR_CONFIG_LIST
+#  2: DATASET_NAME
+#  3: N_PROC (Number of processers used for ensembling, postprocessing etc
+#  4: TR_CONFIG_LIST
 #     List with strings with all configurations to be used to find best
 #     ensembling
 #     ACHTUNG!!! Configurations MUST be trained before calling this function
 #     (2d, 3d_lowres, 3d_fullres)
-#  4: PLAN_TYPE
+#  5: PLAN_TYPE
 #     Options:
 #      + Not defined:
 #        Old nnUNet standard planner
@@ -31,9 +32,13 @@
 
 function find_best_config_fun {
         DATASET_ID=$1
-	N_PROC=$2
-        TR_CONFIG_LIST=$3
-        PLAN_TYPE=$4
+        DATASET_NAME=$2
+	N_PROC=$3
+        TR_CONFIG_LIST=$4
+        PLAN_TYPE=$5
+
+        # Define dataset full name [str]
+        dataset_full_nm="Dataset$(printf %03d $DATASET_ID)_${DATASET_NAME}"
 
         # Find best configuration
 	# (after training more than one fold [and more than one configuration])
@@ -42,9 +47,13 @@ function find_best_config_fun {
         if [ -z "${PLAN_TYPE}" ]; then
            PLAN_TYPE="nnUNetPlans"
         fi
-        # 
-        # Find best configuration
-        echo Find best configuration for inferring segmentations
-	nnUNetv2_find_best_configuration $DATASET_ID -c $TR_CONFIG_LIST \
-		                         -p ${PLAN_TYPE} -np ${N_PROC}
+        #
+        if [[ ! -f "$nnUNet_results/${dataset_full_nm}/inference_instructions.txt" ]]; then
+           # Find best configuration
+           printf "\n Find best configuration for inferring segmentations\n"
+	   nnUNetv2_find_best_configuration $DATASET_ID -c $TR_CONFIG_LIST \
+	   	                         -p ${PLAN_TYPE} -np ${N_PROC}
+        else
+           printf "\n Best configuration for inferring segmentations previously found!\n"
+        fi
 }

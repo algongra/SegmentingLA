@@ -15,10 +15,11 @@ source config.sh
 
 # Declare enviroment variables
 DATASET_ID=13
+DATASET_NAME=LA
 N_PROC=40
 TR_CONFIGS=3d_fullres
 PLAN_TYPE=nnUNetResEncUNetLPlans
 
 
 # Call function find_best_config_fun.sh
-find_best_config_fun $DATASET_ID $N_PROC $TR_CONFIGS $PLAN_TYPE
+find_best_config_fun $DATASET_ID $DATASET_NAME $N_PROC $TR_CONFIGS $PLAN_TYPE
