@@ -1,4 +1,4 @@
-# Wellcome to SegmentingLA
+# Welcome to SegmentingLA
 
 A library for pre-processing Nifti files from our database to obtain automatic segmentations using nnUNet
 
