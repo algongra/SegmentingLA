@@ -28,7 +28,7 @@ A library for pre-processing Nifti files from our database to obtain automatic s
    nohup ./build.sh > build.log 2> build.err &
    ```
 
-## Using SemgentingLA
+## Using SegmentingLA
 
 **1. Access** the **launchers directory inside SegmentingLA directory**
 
@@ -52,7 +52,7 @@ A library for pre-processing Nifti files from our database to obtain automatic s
 
 From launchers directory:
 
-**1. Create nnUNet valid dataset's raw data** using images and sementations files (in Nifti format) from our database
+**1. Create nnUNet valid dataset's raw data** using images and segmentations files (in Nifti format) from our database
 
    * **Copy** one of the **existent create_dataset_{DATASET_ID_TEMPLATE}_{DATASET_NAME_TEMPLATE}.sh** files **to create_dataset_{DATASET_ID_NEW}_{DATASET_NAME_NEW}.sh** file, **e.g.:**
 
